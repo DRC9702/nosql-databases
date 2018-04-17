@@ -3,18 +3,17 @@ from pymongo import MongoClient
 from pprint import pprint
 
 client = MongoClient()
-database = client.movies
+database = client.test
 collection = database.movies
-woop = collection.find({}).count()
 
 # A. Find movies with rating: 'NOT RATED' and update to "Pending rating"
 print("PART A")
 cursor = collection.find({"rated": "NOT RATED"})
-#print(cursor.count())
+print(cursor.count())
 for document in cursor:
-	collection.update({"_id":document["_id"]},{"rated": "Pending rating"})
+	collection.update({"_id":document["_id"]},{"$set": {"rated": "Pending rating"}})
 print("\t ...All 'not rated' ratings updated to 'pending rating'")
-#print(cursor.count())
+print(cursor.count())
 
 # B. Insert movie into database - inserting the movie Pandas(2018)
 # I had to make up the values for id and votes
@@ -38,14 +37,14 @@ agg = collection.aggregate(pipeline)
 pprint(list(agg))
 
 
-#D. Use aggregation to find number of movies made in Mexico in 1995 with rated:"Pending rating"
+#D. Use aggregation to find number of movies made in Mexico with rated:"Pending rating"
 print("PART D")
-pipeline = [	{"$match": {"year": 1995}},
-		{"$unwind": "$countries"},
-		{"$group": {"_id": {"countries": "Mexico", "rated": "Pending rating"}, "count": {"$sum": 1}}}]
-#		{"$group": {"_id": {"countries": "Mexico", "year": "1995"}, "count": {"$sum": 1}}}]
+pipeline = [	#
+		{"$match": {"countries" : "Mexico", "rated": "Pending rating"}},
+		{"$group": {"_id": {"country": "Mexico", "rating": "Pending rating"}, "count": {"$sum": 1}}}]
 
 agg = collection.aggregate(pipeline)
 pprint(list(agg))
+
 
 #E. Use $lookup operator
