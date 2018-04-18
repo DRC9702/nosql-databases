@@ -47,4 +47,22 @@ agg = collection.aggregate(pipeline)
 pprint(list(agg))
 
 
-#E. Use $lookup operator
+#E. Use lookup operator
+print("PART E")
+collection1 = database['inventory']
+collection2 = database['pricetable']
+if collection1.find({}).count()==0:
+	for i,f in enumerate(['apple','peach','banana','mango']):
+		doc = {"fruit_id" : i, "name" : f}
+		collection1.insert(doc)
+if collection2.find({}).count()==0:
+	collection2.insert({"fruit": "mango", "price": 2.00})
+	collection2.insert({"fruit": "peach", "price": 1.50})
+
+pipeline = [{"$lookup": {"from": "pricetable", "localField": "name", "foreignField": "fruit", "as": "fruitPrices"}},
+		{"$match": { "fruitPrices": { "$ne": [] } }}]
+agg = collection1.aggregate(pipeline)
+pprint(list(agg))
+
+collection1.aggregate
+
