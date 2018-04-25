@@ -1,7 +1,84 @@
 // The scenario you have used for your schema is:
-
+// Starwars
 
 // This is an example. Your own commands should *not* be commented out so we can pipe the file into the cypher-shell.
 // If you'd like to test your commands, you can run 'cat homework_4.txt | cypher-shell -u neo4j -p test' from
 // the vagrant box command line. Make sure neo4j is running first.
 // CREATE (a:person { name: 't' });
+
+//Commands to clear everything
+MATCH (n)
+DETACH DELETE n;
+
+//Commands to create the nodes
+CREATE INDEX ON :User(name);
+CREATE (a:User { name: 'C3PO' });
+CREATE (b:User { name: 'Chewbacca' });
+CREATE (c:User { name: 'Han Solo' });
+CREATE (d:User { name: 'Leia' });
+CREATE (e:User { name: 'Obi-Wan' });
+CREATE (f:User { name: 'Darth Vader' });
+CREATE (g:User { name: 'Luke Skywalker' });
+CREATE (h:User { name: 'R2D2' });
+
+//Command to view all the nodes
+MATCH (a:User)
+RETURN (a);
+
+
+// Commands to create relationships:
+
+MATCH (a:User {name:'Han Solo'}), (b:User {name:'Chewbacca'})
+CREATE (a)-[:friend_of]->(b)
+CREATE (b)-[:friend_of]->(a);
+MATCH (a:User {name:'Han Solo'}), (b:User {name:'Luke Skywalker'})
+CREATE (a)-[:friend_of]->(b)
+CREATE (b)-[:friend_of]->(a);
+MATCH (a:User {name:'Han Solo'}), (b:User {name:'Leia'})
+CREATE (a)-[:spouse_of]->(b)
+CREATE (b)-[:spouse_of]->(a);
+MATCH (a:User {name:'Leia'}), (b:User {name:'C3PO'})
+CREATE (a)-[:owner_of]->(b)
+CREATE (b)-[:droid_of]->(a);
+MATCH (a:User {name:'Leia'}), (b:User {name:'R2D2'})
+CREATE (a)-[:owner_of]->(b)
+CREATE (b)-[:droid_of]->(a);
+MATCH (a:User {name:'Leia'}), (b:User {name:'Darth Vader'})
+CREATE (a)-[:child_of]->(b)
+CREATE (b)-[:father_of]->(a);
+MATCH (a:User {name:'Luke Skywalker'}), (b:User {name:'C3PO'})
+CREATE (a)-[:owner_of]->(b)
+CREATE (b)-[:droid_of]->(a);
+MATCH (a:User {name:'Luke Skywalker'}), (b:User {name:'R2D2'})
+CREATE (a)-[:owner_of]->(b)
+CREATE (b)-[:droid_of]->(a);
+MATCH (a:User {name:'Luke Skywalker'}), (b:User {name:'Darth Vader'})
+CREATE (a)-[:child_of]->(b)
+CREATE (b)-[:father_of]->(a);
+MATCH (a:User {name:'Luke Skywalker'}), (b:User {name:'Leia'})
+CREATE (a)-[:brother_of]->(b)
+CREATE (b)-[:sister_of]->(a);
+MATCH (a:User {name:'Luke Skywalker'}), (b:User {name:'Obi-Wan'})
+CREATE (a)-[:student_of]->(b)
+CREATE (b)-[:teacher_of]->(a);
+MATCH (a:User {name:'Darth Vader'}), (b:User {name:'Obi-Wan'})
+CREATE (a)-[:student_of]->(b)
+CREATE (b)-[:teacher_of]->(a);
+
+// Commands to view all relationships
+match (a)-[r]->(b)
+return (a)-[r]->(b);
+
+
+
+
+// Query to view all friendships
+match (a)-[:friend_of]->(b)
+return (a)-[:friend_of]->(b);
+
+
+
+
+//Query to view all children of Darth Vader
+match (a)-[:father_of]->(b)
+return (a)-[:father_of]->(b);
