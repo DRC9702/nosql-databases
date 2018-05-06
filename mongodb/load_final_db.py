@@ -53,7 +53,7 @@ articles[0] = {"article_id": 1,
 		"url": "https://www.ocregister.com/2018/05/04/california-to-become-first-u-s-state-mandating-solar-on-new-homes/",
 		"domain": "ocregister.com"},
 	"author": 1,
-	"comments": [],
+	"comments": [3],
 	"stats": {"points": 54,
 		"time": "02/01/2018:12:01:01"}}
 
@@ -98,7 +98,7 @@ articles[5] = {"article_id": 6,
 		"url": "http://www.chicagotribune.com/news/nationworld/ct-nasa-spacex-rocket-elon-musk-20180505-story.html",
 		"domain": "chicagotribune.com"},
 	"author": 2,
-	"comments": [],
+	"comments": [1],
 	"stats": {"points": 68,
 		"time": "02/01/2018:12:06:01"}}
 
