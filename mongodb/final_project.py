@@ -1,3 +1,7 @@
+#Final Project
+#David Rincon-Cruz
+#dr2884
+
 # Put the use case you chose here. Then justify your database choice:
 # Hackernews and mongodb. Mongodb allows for rich data models and complex queries which is incredibly useful
 # in many of the usecases where you want to query/sort on nested documents. Additionally, the development time
